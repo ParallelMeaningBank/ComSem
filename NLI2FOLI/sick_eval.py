@@ -57,11 +57,21 @@ def confusion_matrix_scores(gold_labs, pred_labs, scores=True):
     cm = ConfusionMatrix(gold_labs, pred_labs)
     print(cm.pretty_format(show_percents=False))
 
-    # calculate and print accuracy, precision and recall for a SICK part (not for individual problems)
-    if scores:
+    # calculate accuracy, precision and recall for a SICK part (not for individual problems)
+    try:
         pre = (cm[('E','E')] + cm[('C','C')]) / float(sum([ cm[(i, j)] for i in 'NEC' for j in 'EC' ]))
+    except:
+        pre = 0
+    try:
         rec = (cm[('E','E')] + cm[('C','C')]) / float(sum([ cm[(i, j)] for i in 'EC' for j in 'NEC' ]))
+    except:
+        rec = 0
+    try:
         acc = (cm[('E','E')] + cm[('C','C')] + cm[('N','N')]) / float(cm._total)
+    except:
+        acc = 0
+    # print accuracy, precision and recall for a SICK part (not for individual problems)
+    if scores:
         print("Accuracy: {:.2f}%\nPrecision: {:.2f}%\nRecall: {:.2f}%".format(acc*100, pre*100, rec*100))
     return (acc, pre, rec), cm
 

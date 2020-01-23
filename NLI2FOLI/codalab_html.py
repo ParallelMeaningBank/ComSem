@@ -6,10 +6,11 @@
     Assignment 4: Natural language inference with first-order logic theorem proving
 '''
 
-def codalab_html((acc, prec, rec), cm, filename):
+def codalab_html(scores, cm, filename):
     '''Write an html file with scores and a confusion matrix
     '''
     # internal css style and other styling
+    (acc, prec, rec) = scores
     style = ("table, th, td { border: 1px solid black; border-collapse: collapse;}\n"
              "td {text-align: right;}\n"
              ".ltd {text-align: left;}\n"
